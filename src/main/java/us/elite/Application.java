@@ -1,5 +1,7 @@
 package us.elite;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.server.PWA;
@@ -19,6 +21,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @PWA(name = "Scopus-Project", shortName = "Scopus-Project", offlineResources = {})
 @NpmPackage(value = "line-awesome", version = "1.3.0")
 public class Application implements AppShellConfigurator {
+
+    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
