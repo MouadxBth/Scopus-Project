@@ -71,7 +71,7 @@ public class ListView extends HorizontalLayout {
         submit.addClickListener(event -> {
             grid.setItems(new ArrayList<>());
             scholarSearchResultService.requestBuilder()
-                    .setAuthor(searchField.getValue());
+                    .setAuthor(searchField.getValue().replace(" ", "+"));
 
             if (!count.getValue().isBlank())
                 scholarSearchResultService.requestBuilder()
