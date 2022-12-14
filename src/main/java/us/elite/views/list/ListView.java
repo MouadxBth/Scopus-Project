@@ -12,7 +12,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import us.elite.scholar.ScholarInterest;
-import us.elite.scholar.ScholarOrganicResult;
+import us.elite.scholar.ScholarProfileResult;
 import us.elite.scholar.ScholarSearchResultService;
 import us.elite.views.profile.ProfileView;
 
@@ -38,7 +38,7 @@ public class ListView extends HorizontalLayout {
         setJustifyContentMode(JustifyContentMode.CENTER);
 
         final H1 title = new H1("Author Search");
-        final Grid<ScholarOrganicResult> grid = getGrid();
+        final Grid<ScholarProfileResult> grid = getGrid();
         title.setWidthFull();
         title.getStyle().set("margin", "7px 0 7px 0");
 
@@ -54,7 +54,7 @@ public class ListView extends HorizontalLayout {
 
     }
 
-    private Component getSearchBar(Grid<ScholarOrganicResult> grid) {
+    private Component getSearchBar(Grid<ScholarProfileResult> grid) {
         final TextField searchField = new TextField("Author name:");
         final TextField count = new TextField("Count:");
 
@@ -91,17 +91,17 @@ public class ListView extends HorizontalLayout {
         return layout;
     }
 
-    private Grid<ScholarOrganicResult> getGrid() {
-        final Grid<ScholarOrganicResult> grid = new Grid<>(ScholarOrganicResult.class);
+    private Grid<ScholarProfileResult> getGrid() {
+        final Grid<ScholarProfileResult> grid = new Grid<>(ScholarProfileResult.class);
         grid.removeAllColumns();
         grid.addComponentColumn(result ->{
             final Image image = new Image(result.thumbnail(), "profile picture");
             image.getStyle().set("border-radius", "25px");
             return image;
         }).setHeader("Profile picture");
-        grid.addColumn(ScholarOrganicResult::id).setHeader("Id");
-        grid.addColumn(ScholarOrganicResult::fullName).setHeader("Full Name");
-        grid.addColumn(result -> (result.email() == null || result.email().isBlank()) ? "None" : result.email()).setHeader("Email");
+       // grid.addColumn(ScholarProfileResult::id).setHeader("Id");
+        grid.addColumn(ScholarProfileResult::fullName).setHeader("Full Name");
+      //  grid.addColumn(result -> (result.email() == null || result.email().isBlank()) ? "None" : result.email()).setHeader("Email");
         grid.addColumn(result -> {
             if (!result.getScholarInterests().isEmpty())
                 return result.getScholarInterests().stream()

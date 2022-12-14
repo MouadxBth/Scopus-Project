@@ -19,7 +19,7 @@ public class ScholarSearchResultService {
         return requestBuilder;
     }
 
-    public Collection<ScholarOrganicResult> result() throws URISyntaxException, IOException, InterruptedException {
+    public Collection<ScholarProfileResult> result() throws URISyntaxException, IOException, InterruptedException {
         final SearchRequest searchRequest = requestBuilder.build();
         return searchRequest.getScholarResults();
     }

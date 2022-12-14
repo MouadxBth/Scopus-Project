@@ -2,12 +2,13 @@ package us.elite.scholar;
 
 import com.google.gson.JsonObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,8 +18,7 @@ import static us.elite.Application.GSON;
 
 public interface SearchRequest {
 
-    Collection<ScholarOrganicResult> getScholarResults();
-
+    Collection<ScholarProfileResult> getScholarResults();
 
     class Builder {
 
@@ -41,7 +41,7 @@ public interface SearchRequest {
 
         public SearchRequest build() throws IOException {
 
-            final StringBuilder stringBuilder = new StringBuilder(ScholarApi.URI.value());
+            final StringBuilder stringBuilder = new StringBuilder(ScholarApi.PROFILES.value());
 
             if (author != null && !author.isBlank())
                 stringBuilder.append("&mauthors=").append(author);
@@ -72,10 +72,10 @@ public interface SearchRequest {
 
 
                 if (wrapper.has("profiles")) {
-                    final List<ScholarOrganicResult> results = wrapper.getAsJsonArray("profiles")
+                    final List<ScholarProfileResult> results = wrapper.getAsJsonArray("profiles")
                             .asList()
                             .stream()
-                            .map(element -> GSON.fromJson(element, ScholarOrganicResult.class))
+                            .map(element -> GSON.fromJson(element, ScholarProfileResult.class))
                             .toList();
                     if (maxResults > 0 && maxResults < results.size())
                         return results.stream().limit(maxResults).collect(Collectors.toList());
